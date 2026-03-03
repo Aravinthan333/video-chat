@@ -29,10 +29,10 @@ docker compose -f docker-compose.dev.yml up --build
 
 What this does:
 
-* `docker compose` → orchestration
-* `-f docker-compose.dev.yml` → dev config
-* `up` → start services
-* `--build` → rebuild images from Dockerfile.dev
+- `docker compose` → orchestration
+- `-f docker-compose.dev.yml` → dev config
+- `up` → start services
+- `--build` → rebuild images from Dockerfile.dev
 
 So it:
 
@@ -66,9 +66,9 @@ docker ps
 
 You should see:
 
-* frontend container
-* backend container
-* postgres container
+- frontend container
+- backend container
+- postgres container
 
 ---
 
@@ -118,10 +118,10 @@ docker compose -f docker-compose.dev.yml down -v
 
 This:
 
-* stops containers
-* deletes volumes
-* deletes DB data
-* full reset
+- stops containers
+- deletes volumes
+- deletes DB data
+- full reset
 
 ---
 
@@ -168,12 +168,12 @@ database system is ready to accept connections
 
 # Dev-mode behavior
 
-* Edit frontend code → browser reloads
-* Edit backend code → server restarts
-* DB persists data
-* Containers stay running
-* Network stable
-* Logs stream live
+- Edit frontend code → browser reloads
+- Edit backend code → server restarts
+- DB persists data
+- Containers stay running
+- Network stable
+- Logs stream live
 
 ---
 
@@ -225,13 +225,13 @@ No manual restarts. No local installs. No env pollution.
 
 At this point, your laptop is acting like a **mini cloud cluster**:
 
-* isolated services
-* internal networking
-* DNS routing
-* persistent storage
-* config injection
-* process isolation
-* reproducible infra
+- isolated services
+- internal networking
+- DNS routing
+- persistent storage
+- config injection
+- process isolation
+- reproducible infra
 
 This is not “running Docker”.
 This is **operating a distributed system**.

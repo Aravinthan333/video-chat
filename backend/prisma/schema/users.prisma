@@ -1,7 +1,12 @@
 model user {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  name        String?
+  googleId    String?  @unique
+  displayName String?
+  avatar      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@schema("users")
 }

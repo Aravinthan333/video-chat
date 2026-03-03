@@ -4,6 +4,7 @@ networks:
 
 volumes:
   chat-app-db-data:
+  redis_data:
 
 services:
   frontend:
@@ -11,7 +12,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     ports:
-      - "5173:5173"
+      - "5175:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -53,3 +54,9 @@ services:
     networks:
       - chat-app-network
 
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
