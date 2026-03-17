@@ -3,7 +3,6 @@ networks:
     driver: bridge
 
 volumes:
-  chat-app-db-data:
   redis_data:
 
 services:
@@ -23,19 +22,19 @@ services:
     depends_on:
       - backend
 
-  psqldb:
-    image: postgres:16-alpine
-    container_name: postgres-dev
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=chatapp
-    volumes:
-      - chat-app-db-data:/var/lib/postgresql/data
-    networks:
-      - chat-app-network
+  # psqldb:
+  #   image: postgres:16-alpine
+  #   container_name: postgres-dev
+  #   ports:
+  #     - "5433:5432"
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=chatapp
+  #   volumes:
+  #     - chat-app-db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - chat-app-network
 
   redis:
     image: redis:alpine
@@ -61,7 +60,6 @@ services:
     networks:
       - chat-app-network
     depends_on:
-      - psqldb
       - redis
 
   nginx:
