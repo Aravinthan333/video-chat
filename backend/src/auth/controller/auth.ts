@@ -4,7 +4,7 @@ import { env } from '../config/checkEnv.ts'
 export const googleCallback = (req: Request, res: Response) => {
   // By this point, passport has already verified the token,
   // upserted the user, and called serializeUser to store in session
-  res.redirect(`${env.clientUrl}/dashboard`)
+  res.redirect(`${env.clientUrl}/checkUser`)
 }
 
 export const getMe = (req: Request, res: Response) => {

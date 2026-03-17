@@ -1,0 +1,9 @@
+DemoVideoStream/*
+node_modules/*
+.env*
+dockercompose.txt
+*.txt
+.DS_Store
+*.log
+*.md
+nginx

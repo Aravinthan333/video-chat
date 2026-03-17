@@ -65,18 +65,24 @@
 
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import DashboardPage from './pages/DashboardPage';
+import { Provider } from 'react-redux';
+import {store} from './reduxStore/store';
+import CheckUser from './pages/CheckUser';
+import Room from './components/Room';
+import VideoCall from './components/VideoCall';
 
 const App: React.FC = () => {
   return (
+    <Provider store={store}>
     <BrowserRouter>
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/checkUser" element={<CheckUser />} />
 
           {/* Protected routes */}
           <Route
@@ -95,13 +101,48 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/room"
+            element={
+              <ProtectedRoute>
+                <Room />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/call/:roomId"
+            element={
+              <ProtectedRoute>
+                <VideoCall />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Default redirect */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </BrowserRouter>
+    </Provider>
   );
 };
 
 export default App;
+
+// ==================================================================================================================================================
+
+
+// import { useState } from "react"
+// import Home from "./pages/Home"
+// import VideoCall from "./components/VideoCall"
+
+// export default function App() {
+
+//   const [roomId, setRoomId] = useState<string | null>(null)
+
+//   if (!roomId) {
+//     return <Home setRoomId={setRoomId} />
+//   }
+
+//   return <VideoCall roomId={roomId} />
+// }

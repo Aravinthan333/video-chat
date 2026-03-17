@@ -1,0 +1,22 @@
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+.center {
+  height: 100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.videos{
+  display:flex;
+  gap:20px;
+}
+
+video{
+  width:400px;
+  background:black;
+}

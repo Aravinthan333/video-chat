@@ -1,12 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authService } from '../services/auth.service';
+import { removeUser, setUser } from '../reduxStore/slices/userSlice';
 
 const DashboardPage: React.FC = () => {
-  const { user, logout } = useAuth();
+  const dispatch = useDispatch()
+  const user = useSelector((state:any) => state.user);
+  const navigate = useNavigate()
+  
+  const logout = async () => {
+    dispatch(removeUser())
+      await authService.logout();
+      navigate("/login")
+    };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4" onLoad={()=> console.log(`user: ${user}`)}>
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-center justify-between mb-6">
@@ -38,6 +48,14 @@ const DashboardPage: React.FC = () => {
               className="inline-block bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               Edit Profile →
+            </Link>
+          </div>
+          <div className="mt-6">
+            <Link
+              to="/room"
+              className="inline-block bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            >
+              Create Room 
             </Link>
           </div>
         </div>

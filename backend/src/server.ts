@@ -13,9 +13,13 @@ import { env } from './auth/config/checkEnv.ts'
 import session from 'express-session'
 import redisClient from './config/redis.ts'
 import { RedisStore } from 'connect-redis'
+import http from 'http'
+import { createSocketServer } from './rtc/realtime/socketServer.ts'
 
 dotenv.config({ path: './.env.dev' })
 const app = express()
+const server = http.createServer(app)
+createSocketServer(server)
 
 // Extend Express session to include our user
 declare module 'express-session' {
@@ -52,7 +56,7 @@ app.use(
       client: redisClient,
       prefix: 'sess',
       ttl: 7 * 24 * 60 * 60
-    }),
+    }) as RedisStore,
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       httpOnly: true, // JS cannot access cookie (XSS protection)
@@ -72,6 +76,6 @@ app.get('/health', (_req, res) => res.json({ status: 'ok' }))
 
 app.use(errorHandler)
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('App is listening!')
+server.listen(process.env.PORT || 3000, () => {
+  console.log('App is listening on port', process.env.PORT || 3000)
 })

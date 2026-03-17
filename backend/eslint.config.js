@@ -45,9 +45,7 @@ export default tseslint.config(
     {
         files: [
             '**/*.test.ts',
-            '**/models/reports/**/*.test.ts',
-            '**/ocr/service/*.test.ts',
-            '**/ocr/testFactory/*.ts'
+            '**/models/reports/**/*.test.ts'
         ],
         rules: {
             complexity: ['warn', 3],
@@ -60,20 +58,20 @@ export default tseslint.config(
         files: ['**/models/testFactory/**/*.ts'],
         rules: {
             complexity: ['off'],
-            'max-lines': ['warn', 50],
+            'max-lines': ['warn', 200],
             'max-statements': ['warn', 20],
             '@typescript-eslint/no-explicit-any': 'off'
         }
     },
     {
-        files: ['**/models/reports/**/*.ts'],
+        files: ['**/models/rawQuery/**/*.ts'],
         rules: {
             'max-lines': ['warn', 50],
             'max-statements': ['warn', 50]
         }
     },
     {
-        files: ['**/models/reports/**/*.test.ts'],
+        files: ['**/models/rawQuery/**/*.test.ts'],
         plugins: { vitest },
         rules: {
             'max-lines': ['warn', 200],

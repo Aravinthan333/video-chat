@@ -1,13 +1,19 @@
-import React from "react";
-import { useAuth } from "../context/AuthContext";
+import React, { useEffect } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
+import { authService } from "../services/auth.service";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../reduxStore/slices/userSlice";
 
 const LoginPage: React.FC = () => {
-  const { user, login, loading } = useAuth();
+  const user = useSelector((state:any) => state.user);
   const [searchParams] = useSearchParams();
   const error = searchParams.get("error");
-
-  if (!loading && user) return <Navigate to="/dashboard" replace />;
+  const login = () => authService.loginWithGoogle();
+  const dispatch = useDispatch()
+  
+  if (user.id!=0) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -22,7 +28,7 @@ const LoginPage: React.FC = () => {
         )}
 
         <button
-          onClick={login}
+          onClick={user.id!=0 ? ()=>{} : login}
           className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg px-6 py-3 hover:bg-gray-50 transition-colors font-medium"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">

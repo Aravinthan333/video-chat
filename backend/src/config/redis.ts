@@ -1,7 +1,7 @@
 import { createClient } from 'redis'
 
 const redisClient = createClient({
-  url: `redis://${process.env.REDIS_HOST || 'localhost'}:${process.env.REDIS_PORT || '6379'}`,
+  url: `redis://${process.env.REDIS_HOST || 'burl-overpowering-unconsentaneously.ngrok-free.dev'}:${process.env.REDIS_PORT || '6379'}`,
   // password: process.env.REDIS_PASSWORD, // uncomment if using auth
   socket: {
     reconnectStrategy: (retries: number) => {
@@ -14,9 +14,13 @@ const redisClient = createClient({
   }
 })
 
-redisClient.on('connect', () => console.log('✅ Redis connected'))
-redisClient.on('error', (err: Error) => console.error('❌ Redis error:', err.message))
+console.log('redisClient details: ===> ', redisClient)
 
-redisClient.connect().catch(console.error)
+redisClient.on('connect', () => console.log('Redis connected'))
+redisClient.on('error', (err: Error) => console.error('Redis error:', err.message))
+
+if (!redisClient.isOpen) {
+  await redisClient.connect().catch(console.error)
+}
 
 export default redisClient
